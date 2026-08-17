@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Área Privada | Club de Moot Court UMU</title>
+
+    <link rel="stylesheet" href="areaprivada.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js" defer></script>
+    <script src="recursos.js" defer></script>
+    <script src="auth.js" defer></script>
+    <script src="perfil.js" defer></script>
+    <script src="miembros.js" defer></script>
+
+    <link 
+        rel="stylesheet" 
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    >
+</head>
+
+<body>
+
+    <!-- =========================
+         CABECERA
+    ========================== -->
+
+    <header class="private-header">
+
+        <div class="header-left">
+
+            <div class="private-logo">
+                <!-- CAMBIA LA RUTA SI ES NECESARIO -->
+                <img 
+                    src="Imágenes/Logo Photoshop.png" 
+                    alt="Logo Club de Moot Court UMU"
+                >
+            </div>
+
+            <div class="header-title">
+                <h1>CLUB DE MOOT COURT UMU</h1>
+                <p>Área Privada de Miembros</p>
+            </div>
+
+        </div>
+
+
+        <div class="header-right">
+
+            <div
+            class="user-info profile-shortcut"
+            role="button"
+            tabindex="0"
+            onclick="openDashboardShortcut('perfil')"
+            onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openDashboardShortcut('perfil'); }"
+        >
+            <div class="user-icon" id="header-profile-avatar">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+
+                <div>
+                <strong id="header-profile-name">Miembro del Club</strong>
+                    <span>Área privada</span>
+                </div>
+            </div>
+
+            <a href="index.html" class="btn-logout" id="logout-button">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Salir
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         ESTRUCTURA PRINCIPAL
+    ========================== -->
+
+    <div class="private-layout">
+
+
+        <!-- =========================
+             MENÚ LATERAL
+        ========================== -->
+
+        <aside class="sidebar">
+
+            <div class="sidebar-title">
+                <span>MENÚ PRINCIPAL</span>
+            </div>
+
+
+            <nav class="sidebar-nav">
+
+                <button 
+                    class="sidebar-btn active"
+                    onclick="switchPrivateSection('dashboard', this)"
+                >
+                    <i class="fa-solid fa-chart-line"></i>
+                    Dashboard
+                </button>
+
+
+                <button 
+                    class="sidebar-btn"
+                    onclick="switchPrivateSection('recursos', this)"
+                >
+                    <i class="fa-solid fa-folder-open"></i>
+                    Recursos
+                </button>
+
+
+                <button 
+                    class="sidebar-btn"
+                    onclick="switchPrivateSection('formacion', this)"
+                >
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    Formación
+                </button>
+
+
+                <button 
+                    class="sidebar-btn"
+                    onclick="switchPrivateSection('competiciones', this)"
+                >
+                    <i class="fa-solid fa-scale-balanced"></i>
+                    Competiciones
+                </button>
+
+
+                <button 
+                    class="sidebar-btn"
+                    onclick="switchPrivateSection('calendario', this)"
+                >
+                    <i class="fa-solid fa-calendar-days"></i>
+                    Calendario
+                </button>
+
+
+                <button 
+                    class="sidebar-btn"
+                    onclick="switchPrivateSection('miembros', this)"
+                >
+                    <i class="fa-solid fa-users"></i>
+                    Miembros
+                </button>
+
+
+                <button 
+                    class="sidebar-btn"
+                    onclick="switchPrivateSection('perfil', this)"
+                >
+                    <i class="fa-solid fa-user-gear"></i>
+                    Mi perfil
+                </button>
+
+            </nav>
+
+
+            <div class="sidebar-bottom">
+
+                <div class="private-notice">
+                    <i class="fa-solid fa-lock"></i>
+
+                    <p>
+                        Contenido exclusivo para miembros del Club.
+                    </p>
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =========================
+             CONTENIDO PRINCIPAL
+        ========================== -->
+
+        <main class="private-main">
+
+
+            <!-- =========================
+                 DASHBOARD
+            ========================== -->
+
+            <section 
+                id="dashboard"
+                class="private-section active"
+            >
+
+                <div class="welcome-section">
+
+                    <div>
+                        <p class="welcome-label">
+                            ÁREA PRIVADA
+                        </p>
+
+                        <h2>
+                            Bienvenido al Club de Moot Court UMU
+                        </h2>
+
+                        <p>
+                            Desde aquí podrás acceder a los recursos,
+                            actividades, formación y competiciones del Club.
+                        </p>
+                    </div>
+
+                    <div class="welcome-icon">
+                        <i class="fa-solid fa-scale-balanced"></i>
+                    </div>
+
+                </div>
+
+
+                <!-- TARJETAS RESUMEN -->
+
+                <div class="stats-grid">
+
+                    <div
+                    class="stat-card dashboard-shortcut"
+                    role="button"
+                    tabindex="0"
+                    onclick="openDashboardShortcut('recursos')"
+                >
+
+                        <div class="stat-icon resources">
+                            <i class="fa-solid fa-folder-open"></i>
+                        </div>
+
+                        <div>
+                            <span>Recursos disponibles</span>
+                            <strong>Abrir</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                    class="stat-card dashboard-shortcut"
+                    role="button"
+                    tabindex="0"
+                    onclick="openDashboardShortcut('formacion')"
+                >
+
+                        <div class="stat-icon training">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+
+                        <div>
+                            <span>Sesiones de formación</span>
+                            <strong>Próximamente</strong>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                    class="stat-card dashboard-shortcut"
+                    role="button"
+                    tabindex="0"
+                    onclick="openDashboardShortcut('competiciones')"
+                >
+
+                        <div class="stat-icon competitions">
+                            <i class="fa-solid fa-trophy"></i>
+                        </div>
+
+                        <div>
+                            <span>Competiciones activas</span>
+                            <strong>Próximamente</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ACTIVIDAD RECIENTE -->
+
+                <div class="content-card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <h3>
+                                <i class="fa-solid fa-bell"></i>
+                                Avisos y novedades
+                            </h3>
+
+                            <p>
+                                Información reciente del Club.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="empty-state">
+
+                        <i class="fa-solid fa-bullhorn"></i>
+
+                        <h4>
+                            Todavía no hay novedades
+                        </h4>
+
+                        <p>
+                            Los avisos, convocatorias y novedades del Club
+                            aparecerán aquí.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PRÓXIMAS ACTIVIDADES -->
+
+                <div class="content-card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <h3>
+                                <i class="fa-solid fa-calendar-check"></i>
+                                Próximas actividades
+                            </h3>
+
+                            <p>
+                                Consulta las próximas actividades del Club.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="empty-state">
+
+                        <i class="fa-solid fa-calendar-plus"></i>
+
+                        <h4>
+                            No hay actividades programadas
+                        </h4>
+
+                        <p>
+                            Cuando se publiquen nuevas actividades,
+                            podrás consultarlas desde aquí.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 RECURSOS
+            ========================== -->
+
+            <section 
+                id="recursos"
+                class="private-section"
+            >
+
+                <div class="page-heading">
+
+                    <p class="welcome-label">
+                        BIBLIOTECA DEL CLUB
+                    </p>
+
+                    <h2>
+                        Recursos y materiales
+                    </h2>
+
+                    <p>
+                        Aquí se organizarán los materiales de estudio
+                        y recursos compartidos entre los miembros.
+                    </p>
+
+                </div>
+
+
+                <div class="resource-grid" id="resource-grid">
+
+                    <div
+                    class="resource-card">
+            
+
+                        <div class="resource-icon">
+                            <i class="fa-solid fa-file-lines"></i>
+                        </div>
+
+                        <h3>
+                            Memoriales
+                        </h3>
+
+                        <p>
+                            Modelos y ejemplos de escritos jurídicos
+                            para la preparación de competiciones.
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="resource-card"
+                        id="jurisprudence-card"
+                        role="button"
+                        tabindex="0"
+                        data-resource-folder="jurisprudencia"
+                        data-resource-title="Jurisprudencia"
+                        data-resource-description="Selección de jurisprudencia y materiales relevantes para mooting."
+                        data-resource-icon="fa-book"
+                    >
+                        <div class="resource-icon">
+                            <i class="fa-solid fa-book"></i>
+                        </div>
+
+                        <h3>
+                            Jurisprudencia
+                        </h3>
+
+                        <p>
+                            Selección de jurisprudencia y materiales
+                            relevantes para mooting.
+                        </p>
+
+                    </div>
+
+
+                    <div class="resource-card">
+
+                        <div class="resource-icon">
+                            <i class="fa-solid fa-microphone"></i>
+                        </div>
+
+                        <h3>
+                            Argumentación oral
+                        </h3>
+
+                        <p>
+                            Guías y materiales para preparar
+                            exposiciones y defensas orales.
+                        </p>
+
+                    </div>
+
+
+                   <div
+                    class="resource-card"
+                    id="legal-english-card"
+                    role="button"
+                    tabindex="0"
+                    data-resource-folder="ingles-juridico"
+                    data-resource-title="Inglés jurídico"
+                    data-resource-description="Documentos, vocabulario y materiales de legal English."
+                    data-resource-icon="fa-language"
+                    >
+
+                        <div class="resource-icon">
+                            <i class="fa-solid fa-language"></i>
+                        </div>
+
+                        <h3>
+                            Inglés jurídico
+                        </h3>
+
+                        <p>
+                            Materiales y recursos orientados
+                            al legal English.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div id="legal-english-view" class="resource-detail hidden">
+                <button
+                    type="button"
+                    class="back-to-resources"
+                    onclick="closeLegalEnglish()"
+                >
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Volver a Recursos y materiales
+                </button>
+
+                <div class="resource-detail-header">
+                    <div class="resource-icon">
+                        <i class="fa-solid fa-language"></i>
+                    </div>
+
+                    <div>
+                        <p class="welcome-label">RECURSOS Y MATERIALES</p>
+                        <h3>Inglés jurídico</h3>
+                        <p>
+                            Documentos, vocabulario y materiales de legal English.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="resource-actions">
+                <label class="upload-file-btn">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    Subir archivo
+                    <input
+                        id="legal-english-file-input"
+                        type="file"
+                        accept=".pdf,.doc,.docx"
+                        hidden
+                    >
+                </label>
+                </div>
+
+                <div id="legal-english-file-list" class="file-list">
+                    <div class="empty-file-list">
+                        <i class="fa-solid fa-folder-open"></i>
+                        <p>Aún no hay archivos en esta carpeta.</p>
+                    </div>
+                </div>
+                <div id="file-preview" class="file-preview hidden"></div>
+            </div>
+
+            </section>
+
+
+            <!-- =========================
+                 FORMACIÓN
+            ========================== -->
+
+            <section 
+                id="formacion"
+                class="private-section"
+            >
+
+                <div class="page-heading">
+
+                    <p class="welcome-label">
+                        PROGRAMA FORMATIVO
+                    </p>
+
+                    <h2>
+                        Formación
+                    </h2>
+
+                    <p>
+                        Actividades y sesiones de formación del Club.
+                    </p>
+
+                </div>
+
+
+                <div class="content-card">
+
+                    <div class="empty-state">
+
+                        <i class="fa-solid fa-graduation-cap"></i>
+
+                        <h4>
+                            Próximamente
+                        </h4>
+
+                        <p>
+                            Aquí aparecerán las sesiones formativas,
+                            materiales y actividades de preparación.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 COMPETICIONES
+            ========================== -->
+
+            <section 
+                id="competiciones"
+                class="private-section"
+            >
+
+                <div class="page-heading">
+
+                    <p class="welcome-label">
+                        MOOT COURTS
+                    </p>
+
+                    <h2>
+                        Competiciones
+                    </h2>
+
+                    <p>
+                        Información sobre las competiciones
+                        en las que participa o se prepara el Club.
+                    </p>
+
+                </div>
+
+
+                <div class="content-card">
+
+                    <div class="empty-state">
+
+                        <i class="fa-solid fa-trophy"></i>
+
+                        <h4>
+                            Competiciones próximamente
+                        </h4>
+
+                        <p>
+                            La información de cada competición
+                            estará disponible en esta sección.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 CALENDARIO
+            ========================== -->
+
+            <section 
+                id="calendario"
+                class="private-section"
+            >
+
+                <div class="page-heading">
+
+                    <p class="welcome-label">
+                        ORGANIZACIÓN
+                    </p>
+
+                    <h2>
+                        Calendario
+                    </h2>
+
+                    <p>
+                        Próximas actividades, sesiones y fechas relevantes.
+                    </p>
+
+                </div>
+
+
+                <div class="content-card">
+
+                    <div class="calendar-toolbar">
+                        <button type="button" class="calendar-nav-btn" id="calendar-previous" aria-label="Mes anterior">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <h3 id="calendar-month" aria-live="polite"></h3>
+                        <button type="button" class="calendar-nav-btn" id="calendar-next" aria-label="Mes siguiente">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="calendar-weekdays" aria-hidden="true">
+                        <span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span>
+                    </div>
+                    <div class="calendar-grid" id="calendar-grid"></div>
+
+                    <form class="appointment-form" id="appointment-form">
+                        <h3><i class="fa-solid fa-calendar-plus"></i> Añadir cita</h3>
+                        <div class="appointment-fields">
+                            <label>Título
+                                <input id="appointment-title" type="text" required maxlength="80" placeholder="Ej.: Sesión de preparación">
+                            </label>
+                            <label>Fecha
+                                <input id="appointment-date" type="date" required>
+                            </label>
+                            <label>Hora
+                                <input id="appointment-time" type="time">
+                            </label>
+                            <label class="appointment-description">Descripción (opcional)
+                                <input id="appointment-description" type="text" maxlength="160" placeholder="Información adicional">
+                            </label>
+                        </div>
+                        <button type="submit" class="appointment-submit"><i class="fa-solid fa-plus"></i> Guardar cita</button>
+                    </form>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 MIEMBROS
+            ========================== -->
+
+            <section 
+                id="miembros"
+                class="private-section"
+            >
+
+                <div class="page-heading">
+
+                    <p class="welcome-label">
+                        COMUNIDAD
+                    </p>
+
+                    <h2>
+                        Miembros del Club
+                    </h2>
+
+                    <p>
+                        Espacio destinado a la comunidad de miembros.
+                    </p>
+
+                </div>
+
+
+                <div class="members-directory">
+
+                    <div class="members-group">
+                        <div class="members-group-heading">
+                            <div class="members-group-icon staff">
+                                <i class="fa-solid fa-user-tie"></i>
+                            </div>
+
+                            <div>
+                                <p class="welcome-label">ORGANIZACIÓN</p>
+                                <h3>Equipo del Club</h3>
+                                <p>Miembros que forman parte del staff.</p>
+                            </div>
+                        </div>
+
+                        <div id="staff-members-list" class="member-cards-grid">
+                            <p class="members-loading">Cargando equipo…</p>
+                        </div>
+                    </div>
+
+                    <div class="members-group">
+                        <div class="members-group-heading">
+                            <div class="members-group-icon members">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+
+                            <div>
+                                <p class="welcome-label">COMUNIDAD</p>
+                                <h3>Miembros del Club</h3>
+                                <p>Perfiles de los miembros activos del Club.</p>
+                            </div>
+                        </div>
+
+                        <div id="club-members-list" class="member-cards-grid">
+                            <p class="members-loading">Cargando miembros…</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 PERFIL
+            ========================== -->
+
+            <section 
+                id="perfil"
+                class="private-section"
+            >
+
+                <div class="page-heading">
+
+                    <p class="welcome-label">
+                        CONFIGURACIÓN
+                    </p>
+
+                    <h2>
+                        Mi perfil
+                    </h2>
+
+                    <p>
+                        Gestiona tu información personal dentro del Club.
+                    </p>
+
+                </div>
+
+
+                <div class="content-card profile-card">
+        <div class="profile-avatar" id="profile-avatar">
+        <i class="fa-solid fa-user"></i>
+    </div>
+
+    <div class="profile-info">
+        <p class="welcome-label">CUENTA DE MIEMBRO</p>
+        <h3 id="profile-heading">Mi perfil</h3>
+        <p id="profile-status-message">
+            Completa tu información para personalizar tu perfil.
+        </p>
+    </div>
+</div>
+
+<div class="content-card profile-details-card">
+    <div class="profile-detail">
+        <span>Nombre y apellidos</span>
+        <strong id="profile-full-name">—</strong>
+    </div>
+
+    <div class="profile-detail">
+        <span>Estado en el Club</span>
+        <strong id="profile-club-status" class="profile-status-badge">
+            — 
+        </strong>
+    </div>
+
+    <div class="profile-detail">
+        <span>Participación en competición</span>
+        <strong id="profile-competes">—</strong>
+    </div>
+
+    <div id="profile-competition-row" class="profile-detail hidden">
+        <span>Competición actual</span>
+        <strong id="profile-competition-name">—</strong>
+    </div>
+</div>
+
+            </section>
+
+
+        </main>
+
+    </div>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <div
+    id="delete-file-modal"
+    class="file-modal hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="delete-file-title"
+>
+    <div class="file-modal-content">
+        <div class="file-modal-icon">
+            <i class="fa-solid fa-trash"></i>
+        </div>
+
+        <h3 id="delete-file-title">¿Eliminar archivo?</h3>
+
+        <p id="delete-file-message">
+            Esta acción eliminará el archivo definitivamente.
+        </p>
+
+        <div class="file-modal-actions">
+            <button type="button" id="cancel-file-delete" class="modal-cancel-btn">
+                Cancelar
+            </button>
+
+            <button type="button" id="confirm-file-delete" class="modal-delete-btn">
+                <i class="fa-solid fa-trash"></i>
+                Eliminar
+            </button>
+        </div>
+    </div>
+</div>
+
+    <script>
+
+        function switchPrivateSection(sectionId, button) {
+
+            document
+                .querySelectorAll('.private-section')
+                .forEach(section => {
+
+                    section.classList.remove('active');
+
+                });
+
+
+            document
+                .querySelectorAll('.sidebar-btn')
+                .forEach(btn => {
+
+                    btn.classList.remove('active');
+
+                });
+
+
+            document
+                .getElementById(sectionId)
+                .classList.add('active');
+
+
+            button.classList.add('active');
+
+
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+
+        }
+
+        const calendarStorageKey = 'moot-club-calendar-events';
+        let displayedMonth = new Date();
+        displayedMonth.setDate(1);
+
+        function getCalendarEvents() {
+            try {
+                return JSON.parse(localStorage.getItem(calendarStorageKey)) || [];
+            } catch {
+                return [];
+            }
+        }
+
+        function saveCalendarEvents(events) {
+            localStorage.setItem(calendarStorageKey, JSON.stringify(events));
+        }
+
+        function formatDateForInput(date) {
+            const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+            return localDate.toISOString().slice(0, 10);
+        }
+
+        function renderCalendar() {
+            const monthLabel = document.getElementById('calendar-month');
+            const grid = document.getElementById('calendar-grid');
+            const year = displayedMonth.getFullYear();
+            const month = displayedMonth.getMonth();
+            const firstDay = new Date(year, month, 1);
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const startOffset = (firstDay.getDay() + 6) % 7;
+            const events = getCalendarEvents();
+
+            monthLabel.textContent = new Intl.DateTimeFormat('es-ES', {
+                month: 'long', year: 'numeric'
+            }).format(displayedMonth);
+            grid.innerHTML = '';
+
+            for (let index = 0; index < startOffset + daysInMonth; index += 1) {
+                const dayCell = document.createElement('div');
+                dayCell.className = 'calendar-day';
+
+                if (index >= startOffset) {
+                    const day = index - startOffset + 1;
+                    const dateValue = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                    const dayNumber = document.createElement('button');
+                    dayNumber.type = 'button';
+                    dayNumber.className = 'calendar-day-number';
+                    dayNumber.textContent = day;
+                    dayNumber.setAttribute('aria-label', `Añadir cita el ${day}`);
+                    dayNumber.addEventListener('click', () => {
+                        document.getElementById('appointment-date').value = dateValue;
+                        document.getElementById('appointment-title').focus();
+                    });
+                    dayCell.appendChild(dayNumber);
+
+                    events.filter(event => event.date === dateValue).forEach(event => {
+                        const eventButton = document.createElement('button');
+                        eventButton.type = 'button';
+                        eventButton.className = 'calendar-event';
+                        eventButton.dataset.eventId = event.id;
+                        eventButton.title = [
+                            event.title,
+                            event.time,
+                            event.description,
+                            'Pulsa para eliminar esta cita'
+                        ].filter(Boolean).join(' · ');
+                        eventButton.textContent = `${event.time ? `${event.time} · ` : ''}${event.title}`;
+                        eventButton.addEventListener('click', () => {
+                            if (confirm(`¿Eliminar la cita “${event.title}”?`)) {
+                                saveCalendarEvents(getCalendarEvents().filter(item => item.id !== event.id));
+                                renderCalendar();
+                            }
+                        });
+                        dayCell.appendChild(eventButton);
+                    });
+                } else {
+                    dayCell.classList.add('calendar-day-empty');
+                }
+                grid.appendChild(dayCell);
+            }
+        }
+
+        document.getElementById('calendar-previous').addEventListener('click', () => {
+            displayedMonth.setMonth(displayedMonth.getMonth() - 1);
+            renderCalendar();
+        });
+
+        document.getElementById('calendar-next').addEventListener('click', () => {
+            displayedMonth.setMonth(displayedMonth.getMonth() + 1);
+            renderCalendar();
+        });
+
+        document.getElementById('appointment-form').addEventListener('submit', event => {
+            event.preventDefault();
+            const title = document.getElementById('appointment-title').value.trim();
+            const date = document.getElementById('appointment-date').value;
+            const time = document.getElementById('appointment-time').value;
+            const description = document.getElementById('appointment-description').value.trim();
+            if (!title || !date) return;
+
+            const events = getCalendarEvents();
+            events.push({ id: crypto.randomUUID(), title, date, time, description });
+            saveCalendarEvents(events);
+            displayedMonth = new Date(`${date}T12:00:00`);
+            document.getElementById('appointment-form').reset();
+            renderCalendar();
+        });
+
+        document.getElementById('appointment-date').value = formatDateForInput(new Date());
+        renderCalendar();
+
+        function openDashboardShortcut(sectionId) {
+    const sidebarButton = Array.from(
+        document.querySelectorAll('.sidebar-btn')
+    ).find(button =>
+        button.getAttribute('onclick').includes(`'${sectionId}'`)
+    );
+
+    if (sidebarButton) {
+        switchPrivateSection(sectionId, sidebarButton);
+    }
+}
+
+document.querySelectorAll('.dashboard-shortcut').forEach(card => {
+    card.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            card.click();
+        }
+    });
+});
+
+    </script>
+
+</body>
+</html>

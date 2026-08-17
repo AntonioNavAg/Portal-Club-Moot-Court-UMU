@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club de Moot Court UMU</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="crau-floating" onclick="openModal('modal-crau')">
+        <i class="fa-solid fa-graduation-cap"></i> Reconocimiento CRAU
+    </div>
+
+    <header class="main-header">
+        <div class="header-top">
+            <h1 class="club-title">CLUB DE MOOT COURT UMU</h1>
+            <p class="faculty-sub">Facultad de Derecho • Universidad de Murcia</p>
+        </div>
+        
+        <nav class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab('inicio')"><i class="fa-solid fa-house"></i> Inicio</button>
+            <button class="tab-btn" onclick="switchTab('que-hacemos')"><i class="fa-solid fa-gavel"></i> ¿Qué hacemos?</button>
+            <button class="tab-btn" onclick="switchTab('para-que-sirve')"><i class="fa-solid fa-graduation-cap"></i> ¿Para qué sirve?</button>
+            <button class="tab-btn" onclick="switchTab('objetivos')"><i class="fa-solid fa-bullseye"></i> Nuestros Objetivos</button>
+            <button class="tab-btn" onclick="switchTab('quienes-somos')"><i class="fa-solid fa-users"></i> ¿Quiénes somos?</button>
+        </nav>
+    </header>
+
+    <main class="content-container">
+
+        <section id="inicio" class="tab-content active">
+            <div class="hero-section">
+                <div class="hero-overlay"></div>
+                <div class="hero-inner">
+                    <h2>Fomentando el Derecho de la Unión Europea</h2>
+                    <p>Participa en los torneos jurídicos más prestigiosos y lleva la práctica jurídica al siguiente nivel.</p>
+                    <button class="btn-participa" onclick="openModal('modal-participa')">PARTICIPA <i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <div class="grid-info">
+                <div class="info-card">
+                    <div class="card-icon"><i class="fa-solid fa-book-bookmark"></i></div>
+                    <h3>Recursos del Club</h3>
+                    <p>El Club aspirará a crear una biblioteca compartida de recursos, que podrá incluir: memoriales de ediciones anteriores, reglas de competiciones, guías de estilo, plantillas de memorial, bases de jurisprudencia relevante, manuales de argumentación oral y materiales de inglés jurídico.</p>
+                    <small>El acceso respetará estrictamente los derechos de autor y la normativa universitaria aplicable.</small>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-icon"><i class="fa-solid fa-handshake"></i></div>
+                    <h3>Colaboraciones</h3>
+                    <p>Promovemos la colaboración activa con el profesorado de la Facultad (Derecho Internacional, UE, Procesal, Mercantil), la Clínica Jurídica, antiguos alumnos, despachos de abogados e instituciones europeas o internacionales.</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-icon"><i class="fa-solid fa-coins"></i></div>
+                    <h3>Sostenibilidad y Financiación</h3>
+                    <p>Para afrontar tasas de inscripción y desplazamientos, buscaremos ayudas internas de la UMU, patrocinios privados transparentes y colaboración con entidades del sector legal sin interferencias académicas.</p>
+                </div>
+            </div>
+
+            <div class="identity-footer-box">
+                <h3><i class="fa-solid fa-id-card"></i> Identidad institucional y uso de imagen</h3>
+                <p>El uso de denominaciones, símbolos o referencias institucionales de la Universidad de Murcia o de la Facultad de Derecho deberá respetar las normas de imagen institucional y contar con la autorización correspondiente. El tratamiento de datos personales y grabaciones se realizará conforme a los protocolos de la UMU.</p>
+            </div>
+        </section>
+
+        <section id="que-hacemos" class="tab-content">
+            <h2 class="section-title">Funciones Principales del Club</h2>
+            <div class="functions-grid">
+                <div class="f-box">
+                    <span>1</span>
+                    <h3>Formación jurídica práctica</h3>
+                    <p>Mediante sesiones periódicas sobre argumentación, investigación, redacción jurídica, defensa oral y técnica de respuesta a preguntas.</p>
+                </div>
+                <div class="f-box">
+                    <span>2</span>
+                    <h3>Preparación y apoyo a equipos</h3>
+                    <p>Mediante un programa anual de entrenamiento, simulacros, revisión de escritos y una competición interna.</p>
+                </div>
+                <div class="f-box">
+                    <span>3</span>
+                    <h3>Proyección institucional</h3>
+                    <p>Mediante la participación progresiva de la Facultad de Derecho de la Universidad de Murcia en competiciones jurídicas nacionales e internacionales.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="para-que-sirve" class="tab-content">
+            <h2 class="section-title">¿Para qué sirve el Mooting?</h2>
+            <div class="text-block">
+                <p>Las competiciones de moot court constituyen una herramienta formativa de primer orden en la enseñanza jurídica contemporánea. A diferencia de otros formatos académicos, combinan de manera integrada el estudio sustantivo del Derecho, la investigación jurisprudencial y doctrinal, la redacción jurídica, la estrategia procesal, la exposición oral, la respuesta a preguntas bajo presión y el trabajo colectivo.</p>
+                <p>En un entorno jurídico cada vez más internacionalizado, resulta especialmente importante que los estudiantes de Derecho entren en contacto con formas de aprendizaje práctico que reproduzcan el funcionamiento de procedimientos ante tribunales, órganos internacionales o instituciones europeas.</p>
+            </div>
+            
+            <h3 class="subsection-title">Beneficios Institucionales para la Facultad de Derecho de la UMU</h3>
+            <ul class="benefit-list">
+                <li><i class="fa-solid fa-check"></i> Reforzaría la formación práctica de los estudiantes.</li>
+                <li><i class="fa-solid fa-check"></i> Fomentaría la internacionalización de la Facultad.</li>
+                <li><i class="fa-solid fa-check"></i> Favorecería el contacto entre estudiantes, profesorado, antiguos alumnos y profesionales del Derecho.</li>
+                <li><i class="fa-solid fa-check"></i> Permitiría preparar de forma más sistemática la participación en competiciones.</li>
+                <li><i class="fa-solid fa-check"></i> Crearía una estructura estable de transmisión de experiencia entre generaciones.</li>
+                <li><i class="fa-solid fa-check"></i> Aumentaría la visibilidad académica de la Facultad en litigación simulada.</li>
+            </ul>
+            <blockquote>
+                El Club no pretende sustituir la dirección académica de la Facultad ni asumir competencias institucionales propias de los órganos universitarios. Su finalidad es servir como plataforma estudiantil de apoyo, formación y coordinación.
+            </blockquote>
+        </section>
+
+        <section id="objetivos" class="tab-content">
+            <h2 class="section-title">Objetivos Principales del Club</h2>
+            <div class="objectives-list">
+                <div class="obj-item"><strong>1.</strong> Formar a estudiantes en técnicas de argumentación oral y escrita de nivel competitivo.</div>
+                <div class="obj-item"><strong>2.</strong> Introducir a los estudiantes en la estructura de competiciones jurídicas nacionales e internacionales.</div>
+                <div class="obj-item"><strong>3.</strong> Preparar equipos para competiciones como AEDEUR, EUniwell, Telders, Jessup, ELSA, Moot Madrid, Vis Moot, etc.</div>
+                <div class="obj-item"><strong>4.</strong> Organizar anualmente un Moot Court Interno de la Facultad.</div>
+                <div class="obj-item"><strong>5.</strong> Crear una comunidad de práctica jurídica basada en la cooperación intergeneracional y profesional.</div>
+                <div class="obj-item"><strong>6.</strong> Fomentar el uso del inglés jurídico y otras lenguas jurídicas relevantes.</div>
+                <div class="obj-item"><strong>7.</strong> Contribuir a la presencia de la Facultad de Derecho de la UMU en redes internacionales de mooting.</div>
+                <div class="obj-item"><strong>8.</strong> Establecer una estructura sostenible para transmitir conocimientos y materiales.</div>
+                <div class="obj-item"><strong>9.</strong> Desarrollar procedimientos transparentes para la selección de estudiantes representantes.</div>
+                <div class="obj-item"><strong>10.</strong> Favorecer la conexión entre la Universidad, el sector jurídico profesional y redes académicas.</div>
+            </div>
+        </section>
+
+        <section id="quienes-somos" class="tab-content">
+            <h2 class="section-title">Estructura Organizativa del Club</h2>
+            
+            <div class="org-section">
+                <h3>7.1. Asamblea de miembros</h3>
+                <p>Formada por los miembros activos del Club. Será el espacio ordinario de deliberación, propuesta y seguimiento de actividades para evaluar el funcionamiento y aprobar líneas de trabajo.</p>
+            </div>
+
+            <div class="org-section">
+                <h3>7.2. Junta de coordinación estudiantil (Elegida anualmente)</h3>
+                <div class="roles-grid">
+                    <div class="role-card">
+                        <h4>Presidencia</h4>
+                        <ul>
+                            <li>Representar al Club ante la Facultad e instituciones externas.</li>
+                            <li>Coordinar la actividad general y convocar reuniones.</li>
+                            <li>Mantener comunicación regular con el profesor tutor.</li>
+                            <li>Supervisar el programa anual y el Moot Interno.</li>
+                        </ul>
+                    </div>
+                    <div class="role-card">
+                        <h4>Vicepresidencia</h4>
+                        <ul>
+                            <li>Sustituir a la Presidencia en caso de ausencia.</li>
+                            <li>Coordinar la logística de actividades, simulaciones y competiciones.</li>
+                            <li>Apoyar la relación con otros equipos y colaboradores externos.</li>
+                        </ul>
+                    </div>
+                    <div class="role-card">
+                        <h4>Secretaría</h4>
+                        <ul>
+                            <li>Gestionar la comunicación interna y elaborar actas.</li>
+                            <li>Mantener el archivo documental y el proceso de admisión.</li>
+                            <li>Custodiar materiales, guías y plantillas de trabajo.</li>
+                        </ul>
+                    </div>
+                    <div class="role-card">
+                        <h4>Coordinación de Competiciones</h4>
+                        <ul>
+                            <li>Mantener actualizado el calendario de competiciones relevantes.</li>
+                            <li>Recopilar requisitos, plazos, idiomas y formatos.</li>
+                            <li>Apoyar la preparación de los equipos y evaluar resultados.</li>
+                        </ul>
+                    </div>
+                    <div class="role-card">
+                        <h4>Coordinación de Formación y Recursos</h4>
+                        <ul>
+                            <li>Organizar materiales de estudio y coordinar sesiones formativas.</li>
+                            <li>Mantener la biblioteca compartida de memoriales y jurisprudencia.</li>
+                            <li>Identificar posibles ponentes y formadores.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="org-section">
+                <h3>8. Profesor tutor o profesora tutora</h3>
+                <p>Contará con la supervisión académica general de un docente de la Facultad de Derecho para velar por la continuidad institucional, orientar el programa formativo y facilitar la inserción del proyecto en la Facultad.</p>
+            </div>
+
+            <div class="org-section">
+                <h3>9. Coaches y colaboradores externos</h3>
+                <p>Antiguos mooters, abogados y académicos que apoyarán de forma técnica y formativa (simulacros, revisión de argumentos), ajustándose siempre a las reglas de cada competición.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="modal-participa" class="modal">
+        <div class="modal-content">
+            <header class="modal-header-nav">
+                <h2>Portal de Admisión y Actividades</h2>
+                <button class="close-modal-btn" onclick="closeModal('modal-participa')">&times;</button>
+            </header>
+            
+            <div class="modal-subnav">
+                <button class="sub-tab-btn active" onclick="switchSubTab('admision')">Miembros y Admisión</button>
+                <button class="sub-tab-btn" onclick="switchSubTab('programa')">Programa Anual</button>
+                <button class="sub-tab-btn" onclick="switchSubTab('moot-interno')">Moot Court Interno</button>
+                <button class="sub-tab-btn" onclick="switchSubTab('competiciones')">Competiciones Externas</button>
+            </div>
+
+            <div class="modal-body-content">
+                
+                <div id="sub-admision" class="sub-tab-content active">
+                    <h3>Miembros, admisión y participación</h3>
+                    <p>Podrán formar parte del Club estudiantes de la Facultad de Derecho de la Universidad de Murcia y, en su caso, estudiantes de dobles grados, másteres u otros programas jurídicos vinculados a la Facultad.</p>
+                    <div class="admission-steps">
+                        <h4>El proceso de admisión incluye:</h4>
+                        <ul>
+                            <li>Formulario de inscripción.</li>
+                            <li>Breve carta de motivación.</li>
+                            <li>Entrevista informal.</li>
+                            <li>Prueba de argumentación o análisis jurídico (si fuera necesario por aforo).</li>
+                        </ul>
+                    </div>
+                    <div class="warning-note">
+                        <i class="fa-solid fa-triangle-exclamation"></i> La pertenencia al Club no implicará automáticamente la selección para representar a la Facultad en competiciones externas. Los equipos se elegirán mediante criterios transparentes, objetivos y sujetos a aprobación institucional.
+                    </div>
+                </div>
+
+                <div id="sub-programa" class="sub-tab-content">
+                    <h3>Programa Anual de Actividades</h3>
+                    <p>El programa se divide estructuralmente en dos fases claves a lo largo del curso académico:</p>
+                    
+                    <div class="phases-container">
+                        <div class="phase-box">
+                            <h4>1er Cuatrimestre: Formación</h4>
+                            <p>Ciclo de sesiones formativas orientadas a dotar de herramientas básicas en áreas como:</p>
+                            <ol>
+                               <li>Introducción al mooting.</li>
+                               <li>Instituciones de la Unión Europea.</li>
+                               <li>Fuentes del Derecho Internacional y Europeo.</li>
+                               <li>Tribunal de Justicia de la UE (TJUE).</li>
+                               <li>Tribunal Europeo de Derechos Humanos (TEDH).</li>
+                               <li>Mecanismos de Naciones Unidas.</li>
+                               <li>Derecho económico y arbitraje.</li>
+                               <li>Inglés jurídico formal.</li>
+                               <li>Redacción de memoriales.</li>
+                               <li>Investigación eficiente en bases de datos.</li>
+                            </ol>
+                        </div>
+                        <div class="phase-box">
+                            <h4>2º Cuatrimestre: Práctica y Moot Interno</h4>
+                            <ul class="timeline">
+                                <li><strong>Enero:</strong> Presentación del caso hipotético y formación de equipos.</li>
+                                <li><strong>Febrero:</strong> Ejercicios de defensa oral y respuestas bajo presión.</li>
+                                <li><strong>Marzo:</strong> Redacción de memoriales escritos y feedback de profesores.</li>
+                                <li><strong>Abril:</strong> Ensayos orales completos y simulacros de interrupción.</li>
+                                <li><strong>Mayo/Junio:</strong> Celebración del Moot Court Interno con tribunales expertos.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="sub-moot-interno" class="sub-tab-content">
+                    <h3>Moot Court Interno de la Facultad</h3>
+                    <p>El Moot Court Interno será la <strong>actividad anual central del Club</strong>. Su finalidad será ofrecer a los estudiantes una experiencia completa de litigación simulada y servir como espacio de entrenamiento, evaluación y visibilidad.</p>
+                    <p>El Moot Interno se regirá por un reglamento básico, incluido como Anexo I a esta propuesta, que podrá ser desarrollado o adaptado en cada edición mediante convocatoria anual.</p>
+                </div>
+
+                <div id="sub-competiciones" class="sub-tab-content">
+                    <h3>Competiciones Externas</h3>
+                    <p>El Club apoyará la preparación de estudiantes para competiciones externas de manera progresiva y realista, clasificando metas en base a exigencia:</p>
+                    
+                    <div class="comp-tiers">
+                        <div class="tier">
+                            <h5>Corto Plazo</h5>
+                            <p>AEDEUR, EUniwell, Moots nacionales/europeos y pre-moots de simulación.</p>
+                        </div>
+                        <div class="tier">
+                            <h5>Medio Plazo</h5>
+                            <p>Telders International Law Moot Court, Moot Madrid, ELSA Moot Court y Derechos Humanos.</p>
+                        </div>
+                        <div class="tier">
+                            <h5>Objetivos Estratégicos</h5>
+                            <p>Philip C. Jessup International Law Moot Court, Willem C. Vis International Commercial Arbitration Moot.</p>
+                        </div>
+                    </div>
+
+                    <div class="selection-box">
+                        <button class="btn-toggle-info" onclick="toggleSelectionInfo()"><i class="fa-solid fa-circle-question"></i> ¿Cómo me seleccionan? (Haz clic aquí)</button>
+                        <div id="selection-info-content" class="hidden-info">
+                            <h4>Selección de equipos para competiciones externas</h4>
+                            <p>La selección se regirá por criterios transparentes y objetivos. Se valorará:</p>
+                            <ul>
+                                <li>Participación activa en el Club y rendimiento en el Moot Interno.</li>
+                                <li>Calidad de memoriales, capacidad de argumentación oral y respuesta a preguntas.</li>
+                                <li>Trabajo en equipo, compromiso de dedicación y nivel de idioma.</li>
+                            </ul>
+                            <small>La designación final de equipos corresponde a los órganos que la Facultad determine.</small>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-crau" class="modal">
+        <div class="modal-content modal-content-small">
+            <header class="modal-header-nav">
+                <h2>Reconocimiento Académico y CRAU</h2>
+                <button class="close-modal-btn" onclick="closeModal('modal-crau')">&times;</button>
+            </header>
+            <div class="modal-body-content">
+                <p style="font-size: 1.05rem; margin-bottom: 15px;">El Club podrá solicitar, si la normativa universitaria lo permite, el reconocimiento de créditos CRAU por la participación continuada y acreditada en:</p>
+                <ul class="benefit-list" style="margin-bottom: 15px;">
+                    <li><i class="fa-solid fa-circle-check" style="color: var(--ue-blue); margin-top:4px;"></i> Actividades formativas periódicas.</li>
+                    <li><i class="fa-solid fa-circle-check" style="color: var(--ue-blue); margin-top:4px;"></i> Preparación y entrenamiento de equipos.</li>
+                    <li><i class="fa-solid fa-circle-check" style="color: var(--ue-blue); margin-top:4px;"></i> Organización activa del Moot Interno.</li>
+                    <li><i class="fa-solid fa-circle-check" style="color: var(--ue-blue); margin-top:4px;"></i> Participación en competiciones externas.</li>
+                </ul>
+                <div class="warning-note" style="background-color: #E2E8F0; color: var(--text-dark); border-left: 4px solid var(--ue-blue);">
+                    <i class="fa-solid fa-circle-info" style="color: var(--ue-blue)"></i> Este reconocimiento estará siempre sujeto a la normativa aplicable de la Universidad de Murcia y a la aprobación de los órganos competentes.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cambiar pestañas principales del portal
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.querySelectorAll('.nav-tabs .tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Abrir ventanas modales emergentes
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "flex";
+        }
+
+        // Cerrar ventanas modales emergentes
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
+
+        // Cambiar sub-pestañas internas dentro de la ventana de Participa
+        function switchSubTab(subTabId) {
+            document.querySelectorAll('.sub-tab-content').forEach(content => content.classList.remove('active'));
+            document.querySelectorAll('.modal-subnav .sub-tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById('sub-' + subTabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Desplegar u ocultar la información de criterios de selección
+        function toggleSelectionInfo() {
+            var content = document.getElementById('selection-info-content');
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        }
+
+        // Cerrar modales automáticamente si el usuario hace clic fuera de la zona blanca
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
