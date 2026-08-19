@@ -2790,7 +2790,7 @@ body::before {
     align-items: center;
     gap: 18px;
 
-    margin-left: 80px;
+    margin-left: 30px;
 }
 
 .welcome-aside .welcome-icon {
@@ -2859,5 +2859,101 @@ body::before {
 
         writing-mode: horizontal-tb;
         transform: none;
+    }
+}
+
+/* BIENVENIDA DEL DASHBOARD — AJUSTE MÓVIL */
+
+@media (max-width: 768px) {
+    .welcome-section {
+        display: block;
+
+        min-height: auto;
+        padding: 24px 20px 82px;
+    }
+
+    .welcome-section h2 {
+        max-width: 100%;
+        font-size: 1.4rem;
+        line-height: 1.2;
+    }
+
+    .welcome-section p:not(.welcome-label):not(.welcome-slogan) {
+        max-width: 100%;
+        font-size: 0.9rem;
+        line-height: 1.55;
+    }
+
+    .welcome-aside {
+        position: absolute;
+        right: 20px;
+        bottom: 16px;
+        left: 20px;
+
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        margin: 0;
+    }
+
+    .welcome-aside .welcome-icon {
+        display: flex;
+
+        width: 38px;
+        height: 38px;
+
+        flex-shrink: 0;
+
+        margin: 0;
+
+        font-size: 1rem;
+    }
+
+    .welcome-slogan {
+        display: block;
+
+        width: auto;
+        height: auto;
+
+        flex: 1;
+
+        margin: 0;
+        padding: 0 0 0 10px;
+
+        border-top: 0;
+        border-right: 0;
+        border-left: 1px solid rgba(255, 255, 255, 0.3);
+
+        font-size: 0.75rem;
+        line-height: 1.35;
+        text-align: left;
+
+        writing-mode: horizontal-tb;
+        transform: none;
+    }
+}
+
+@media (max-width: 430px) {
+    .welcome-section {
+        padding: 20px 16px 78px;
+    }
+
+    .welcome-section h2 {
+        font-size: 1.2rem;
+    }
+
+    .welcome-section p:not(.welcome-label):not(.welcome-slogan) {
+        font-size: 0.83rem;
+    }
+
+    .welcome-aside {
+        right: 16px;
+        bottom: 14px;
+        left: 16px;
+    }
+
+    .welcome-slogan {
+        font-size: 0.68rem;
     }
 }
