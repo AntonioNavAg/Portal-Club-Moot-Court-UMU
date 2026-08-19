@@ -2639,3 +2639,139 @@ body::before {
 
     object-fit: cover;
 }
+
+/* CORREO EN LA FICHA DE MIEMBROS */
+
+.member-profile-email {
+    width: fit-content;
+    padding: 0;
+
+    border: 0;
+    background: transparent;
+
+    color: var(--ue-blue);
+
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 800;
+    text-align: left;
+}
+
+.member-profile-email:hover {
+    text-decoration: underline;
+}
+
+/* CONFIRMACIÓN PARA ABRIR EL CORREO */
+
+.member-email-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 210;
+
+    background: rgba(15, 23, 42, 0.4);
+
+    opacity: 0;
+    pointer-events: none;
+
+    transition: opacity 0.2s ease;
+}
+
+.member-email-overlay.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.member-email-modal {
+    position: fixed;
+    z-index: 220;
+
+    top: 50%;
+    left: 50%;
+
+    width: min(390px, calc(100vw - 30px));
+    padding: 30px;
+
+    border-radius: 14px;
+
+    background: var(--white);
+
+    box-shadow: 0 20px 55px rgba(15, 23, 42, 0.3);
+
+    text-align: center;
+
+    opacity: 0;
+    pointer-events: none;
+
+    transform: translate(-50%, -45%);
+
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.member-email-modal.is-open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%);
+}
+
+.member-email-modal-icon {
+    width: 60px;
+    height: 60px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 16px;
+
+    border-radius: 50%;
+
+    background: #E8EEF9;
+    color: var(--ue-blue);
+
+    font-size: 1.5rem;
+}
+
+.member-email-modal h3 {
+    margin-bottom: 10px;
+    color: var(--ue-blue);
+}
+
+.member-email-modal p {
+    color: var(--text-soft);
+    line-height: 1.6;
+}
+
+.member-email-modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    margin-top: 24px;
+}
+
+.member-email-modal-actions button {
+    padding: 10px 14px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+}
+
+.member-email-cancel {
+    border: 1px solid var(--border);
+    background: var(--bg-light);
+    color: var(--text-dark);
+}
+
+.member-email-confirm {
+    border: 0;
+    background: var(--ue-blue);
+    color: var(--white);
+}
+
+.member-email-confirm:hover {
+    background: var(--ue-blue-dark);
+}

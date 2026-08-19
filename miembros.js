@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     createMemberProfilePanel();
+    createMemberEmailConfirmation();
     loadMembersDirectory();
 });
 
@@ -10,7 +11,7 @@ async function loadMembersDirectory() {
     const { data: profiles, error } = await supabaseClient
         .from('profiles')
         .select(
-            'full_name, club_status, participates_in_competition, competition_name, avatar_path'
+'full_name, club_status, participates_in_competition, competition_name, avatar_path, contact_email'
         )
         .order('full_name', { ascending: true });
 
@@ -140,6 +141,17 @@ function createMemberProfilePanel() {
                 <span>Competición</span>
                 <strong id="member-profile-competition">—</strong>
             </div>
+            <div id="member-profile-email-row" class="hidden">
+    <span>Correo electrónico</span>
+
+    <button
+        type="button"
+        id="member-profile-email"
+        class="member-profile-email"
+    >
+        —
+    </button>
+</div>
         </div>
     `;
 
@@ -176,6 +188,22 @@ async function openMemberProfile(profile, type) {
     } else {
         competitionRow.classList.add('hidden');
     }
+
+    const emailRow = document.getElementById('member-profile-email-row');
+const emailButton = document.getElementById('member-profile-email');
+const email = profile.contact_email?.trim();
+
+if (email) {
+    emailRow.classList.remove('hidden');
+    emailButton.textContent = email;
+
+    emailButton.onclick = () => {
+        openMemberEmailConfirmation(email);
+    };
+} else {
+    emailRow.classList.add('hidden');
+    emailButton.onclick = null;
+}
 
     await renderPanelAvatar(profile.avatar_path, type);
 
@@ -235,6 +263,89 @@ async function renderPanelAvatar(avatarPath, type) {
     image.alt = 'Foto de perfil';
 
     avatar.replaceChildren(image);
+}
+
+let pendingMemberEmail = '';
+
+function createMemberEmailConfirmation() {
+    const overlay = document.createElement('div');
+    overlay.className = 'member-email-overlay';
+    overlay.addEventListener('click', closeMemberEmailConfirmation);
+
+    const modal = document.createElement('div');
+    modal.id = 'member-email-modal';
+    modal.className = 'member-email-modal';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+
+    modal.innerHTML = `
+        <div class="member-email-modal-icon">
+            <i class="fa-solid fa-envelope"></i>
+        </div>
+
+        <h3>¿Abrir correo electrónico?</h3>
+
+        <p>
+            Vas a abrir tu aplicación de correo para escribir a este miembro.
+            ¿Quieres continuar?
+        </p>
+
+        <div class="member-email-modal-actions">
+            <button
+                type="button"
+                class="member-email-cancel"
+                id="member-email-cancel"
+            >
+                Cancelar
+            </button>
+
+            <button
+                type="button"
+                class="member-email-confirm"
+                id="member-email-confirm"
+            >
+                <i class="fa-solid fa-envelope"></i>
+                Continuar
+            </button>
+        </div>
+    `;
+
+    modal.querySelector('#member-email-cancel')
+        .addEventListener('click', closeMemberEmailConfirmation);
+
+    modal.querySelector('#member-email-confirm')
+        .addEventListener('click', confirmMemberEmail);
+
+    document.body.append(overlay, modal);
+}
+
+function openMemberEmailConfirmation(email) {
+    pendingMemberEmail = email;
+
+    document.querySelector('.member-email-overlay')
+        .classList.add('is-open');
+
+    document.getElementById('member-email-modal')
+        .classList.add('is-open');
+}
+
+function closeMemberEmailConfirmation() {
+    document.querySelector('.member-email-overlay')
+        .classList.remove('is-open');
+
+    document.getElementById('member-email-modal')
+        .classList.remove('is-open');
+
+    pendingMemberEmail = '';
+}
+
+function confirmMemberEmail() {
+    if (!pendingMemberEmail) return;
+
+    window.location.href =
+        `mailto:${encodeURIComponent(pendingMemberEmail)}`;
+
+    closeMemberEmailConfirmation();
 }
 
 function showDirectoryError(staffList, membersList) {
