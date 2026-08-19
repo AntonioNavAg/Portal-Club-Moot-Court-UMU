@@ -1086,3 +1086,97 @@ blockquote {
         font-size: 0.72rem;
     }
 }
+
+/* =========================================
+   EVENTOS PÚBLICOS
+========================================= */
+
+.events-intro {
+    margin-bottom: 20px;
+    color: #64748B;
+}
+
+.events-grid {
+    display: grid;
+    gap: 18px;
+}
+
+.event-card {
+    display: flex;
+    overflow: hidden;
+
+    background-color: var(--white);
+    border: 1px solid #E2E8F0;
+    border-radius: 10px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.event-date {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 145px;
+    flex-shrink: 0;
+
+    padding: 20px;
+    background-color: var(--ue-blue);
+    color: var(--ue-gold);
+
+    text-align: center;
+    font-weight: 800;
+}
+
+.event-day {
+    font-size: 0.85rem;
+    line-height: 1.3;
+}
+
+.event-info {
+    padding: 22px;
+}
+
+.event-type {
+    margin-bottom: 7px;
+    color: var(--ue-blue);
+    font-size: 0.82rem;
+    font-weight: 700;
+}
+
+.event-type i {
+    margin-right: 5px;
+}
+
+.event-info h3 {
+    margin-bottom: 9px;
+    color: var(--ue-blue);
+    font-size: 1.25rem;
+}
+
+.event-info > p:not(.event-type):not(.event-location) {
+    color: #475569;
+}
+
+.event-location {
+    margin-top: 15px;
+    color: #64748B;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.event-location i {
+    margin-right: 5px;
+    color: var(--ue-blue);
+}
+
+@media (max-width: 600px) {
+    .event-card {
+        flex-direction: column;
+    }
+
+    .event-date {
+        width: 100%;
+        padding: 12px;
+    }
+}
