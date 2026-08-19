@@ -125,11 +125,9 @@ function renderCalendar() {
                     eventButton.textContent =
                         `${event.event_time ? `${event.event_time.slice(0, 5)} · ` : ''}${event.title}`;
 
-                    if (canManageCalendar) {
-                        eventButton.addEventListener('click', () => {
-                            deleteCalendarEvent(event);
-                        });
-                    }
+                    eventButton.addEventListener('click', () => {
+                        openCalendarEventPanel(event);
+                    });
 
                     dayCell.appendChild(eventButton);
                 });
@@ -189,7 +187,7 @@ async function saveCalendarEvent(submitEvent) {
 async function deleteCalendarEvent(event) {
     const confirmed = confirm(`¿Quieres eliminar la cita “${event.title}”?`);
 
-    if (!confirmed) return;
+    if (!confirmed) return false;
 
     const { error } = await supabaseClient
         .from('calendar_events')
@@ -198,13 +196,16 @@ async function deleteCalendarEvent(event) {
 
     if (error) {
         alert('No se ha podido eliminar la cita: ' + error.message);
-        return;
+        return false;
     }
 
     await loadCalendarEvents();
+    return true;
 }
 
 async function initializeCalendar() {
+    createCalendarEventPanel();
+
     document.getElementById('appointment-date').value =
         formatDateForInput(new Date());
 
@@ -227,5 +228,129 @@ async function initializeCalendar() {
 }
 
 window.refreshSharedCalendar = loadCalendarEvents;
+
+let selectedCalendarEvent = null;
+
+function createCalendarEventPanel() {
+    const overlay = document.createElement('div');
+    overlay.className = 'calendar-event-overlay';
+    overlay.addEventListener('click', closeCalendarEventPanel);
+
+    const panel = document.createElement('aside');
+    panel.id = 'calendar-event-panel';
+    panel.className = 'calendar-event-panel';
+    panel.setAttribute('aria-label', 'Información de la cita');
+
+    panel.innerHTML = `
+        <button
+            type="button"
+            class="calendar-event-close"
+            id="calendar-event-close"
+            aria-label="Cerrar información de la cita"
+        >
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="calendar-event-panel-icon">
+            <i class="fa-solid fa-calendar-check"></i>
+        </div>
+
+        <p class="welcome-label">ACTIVIDAD DEL CLUB</p>
+        <h3 id="calendar-event-panel-title">Cita</h3>
+
+        <div class="calendar-event-panel-details">
+            <div>
+                <span><i class="fa-solid fa-calendar-day"></i> Fecha</span>
+                <strong id="calendar-event-panel-date">—</strong>
+            </div>
+
+            <div>
+                <span><i class="fa-solid fa-clock"></i> Hora</span>
+                <strong id="calendar-event-panel-time">—</strong>
+            </div>
+
+            <div>
+                <span><i class="fa-solid fa-align-left"></i> Descripción</span>
+                <strong id="calendar-event-panel-description">—</strong>
+            </div>
+        </div>
+
+        <button
+            type="button"
+            id="calendar-event-delete"
+            class="calendar-event-delete hidden"
+        >
+            <i class="fa-solid fa-trash"></i>
+            Eliminar cita
+        </button>
+    `;
+
+    panel.querySelector('#calendar-event-close')
+        .addEventListener('click', closeCalendarEventPanel);
+
+    panel.querySelector('#calendar-event-delete')
+        .addEventListener('click', deleteSelectedCalendarEvent);
+
+    document.body.append(overlay, panel);
+}
+
+function openCalendarEventPanel(event) {
+    selectedCalendarEvent = event;
+
+    const formattedDate = new Intl.DateTimeFormat('es-ES', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    }).format(new Date(`${event.event_date}T12:00:00`));
+
+    document.getElementById('calendar-event-panel-title').textContent =
+        event.title;
+
+    document.getElementById('calendar-event-panel-date').textContent =
+        formattedDate;
+
+    document.getElementById('calendar-event-panel-time').textContent =
+        event.event_time
+            ? event.event_time.slice(0, 5)
+            : 'Sin hora indicada';
+
+    document.getElementById('calendar-event-panel-description').textContent =
+        event.description || 'No se ha añadido una descripción.';
+
+    const deleteButton = document.getElementById('calendar-event-delete');
+
+    if (canManageCalendar) {
+        deleteButton.classList.remove('hidden');
+    } else {
+        deleteButton.classList.add('hidden');
+    }
+
+    document.querySelector('.calendar-event-overlay')
+        .classList.add('is-open');
+
+    document.getElementById('calendar-event-panel')
+        .classList.add('is-open');
+}
+
+function closeCalendarEventPanel() {
+    document.querySelector('.calendar-event-overlay')
+        .classList.remove('is-open');
+
+    document.getElementById('calendar-event-panel')
+        .classList.remove('is-open');
+
+    selectedCalendarEvent = null;
+}
+
+async function deleteSelectedCalendarEvent() {
+    if (!selectedCalendarEvent) return;
+
+    const deleted = await deleteCalendarEvent(selectedCalendarEvent);
+
+    if (deleted) {
+        closeCalendarEventPanel();
+    }
+}
 
 initializeCalendar();
