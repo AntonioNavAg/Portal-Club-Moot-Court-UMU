@@ -71,10 +71,11 @@ body::before {
 
 /* Imagen del logo */
 .header-logo img {
-    width: 150px;
-    height: 180px;
+    width: 170px;
+    height: 230px;
     object-fit: contain;
     display: block;
+    transform: translateY(-6px);
 }
 
 /* Contenedor de los textos */

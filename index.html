@@ -33,12 +33,29 @@
     </div>
         
         <nav class="nav-tabs">
-            <button class="tab-btn active" onclick="switchTab('inicio')"><i class="fa-solid fa-house"></i> Inicio</button>
-            <button class="tab-btn" onclick="switchTab('que-hacemos')"><i class="fa-solid fa-gavel"></i> ¿Qué hacemos?</button>
-            <button class="tab-btn" onclick="switchTab('para-que-sirve')"><i class="fa-solid fa-graduation-cap"></i> ¿Para qué sirve?</button>
-            <button class="tab-btn" onclick="switchTab('objetivos')"><i class="fa-solid fa-bullseye"></i> Nuestros Objetivos</button>
-            <button class="tab-btn" onclick="switchTab('quienes-somos')"><i class="fa-solid fa-users"></i> ¿Quiénes somos?</button>
-            <button class="tab-btn" onclick="switchTab('eventos')"> <i class="fa-solid fa-calendar-days"></i> Eventos </button>
+<button class="tab-btn active" onclick="switchTab('inicio', this)">
+    <i class="fa-solid fa-house"></i> Inicio
+</button>
+
+<button class="tab-btn" onclick="switchTab('que-hacemos', this)">
+    <i class="fa-solid fa-gavel"></i> ¿Qué hacemos?
+</button>
+
+<button class="tab-btn" onclick="switchTab('para-que-sirve', this)">
+    <i class="fa-solid fa-graduation-cap"></i> ¿Para qué sirve?
+</button>
+
+<button class="tab-btn" onclick="switchTab('objetivos', this)">
+    <i class="fa-solid fa-bullseye"></i> Nuestros Objetivos
+</button>
+
+<button class="tab-btn" onclick="switchTab('quienes-somos', this)">
+    <i class="fa-solid fa-users"></i> ¿Quiénes somos?
+</button>
+
+<button class="tab-btn" onclick="switchTab('eventos', this)">
+    <i class="fa-solid fa-calendar-days"></i> Eventos
+</button>
         </nav>
     </header>
 
@@ -536,12 +553,17 @@
 
     <script>
         // Cambiar pestañas principales del portal
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            document.querySelectorAll('.nav-tabs .tab-btn').forEach(btn => btn.classList.remove('active'));
-            
+        function switchTab(tabId, button) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            document.querySelectorAll('.nav-tabs .tab-btn').forEach(tabButton => {
+                tabButton.classList.remove('active');
+            });
+
             document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active');
+            button.classList.add('active');
         }
 
         // Abrir ventanas modales emergentes
