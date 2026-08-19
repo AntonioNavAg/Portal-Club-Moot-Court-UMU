@@ -71,8 +71,8 @@ body::before {
 
 /* Imagen del logo */
 .header-logo img {
-    width: 120px;
-    height: 120px;
+    width: 150px;
+    height: 180px;
     object-fit: contain;
     display: block;
 }
