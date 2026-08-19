@@ -2775,3 +2775,89 @@ body::before {
 .member-email-confirm:hover {
     background: var(--ue-blue-dark);
 }
+
+/* ESLOGAN E ICONO DEL DASHBOARD */
+
+.welcome-section {
+    padding-right: 30px;
+}
+
+.welcome-aside {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    margin-left: 80px;
+}
+
+.welcome-aside .welcome-icon {
+    margin-left: 0;
+}
+
+.welcome-slogan {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 135px;
+
+    margin: 0;
+    padding-right: 12px;
+
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+
+    color: var(--ue-gold);
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    letter-spacing: 0.07em;
+    line-height: 1.2;
+
+    text-align: center;
+
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+}
+
+@media (max-width: 768px) {
+    .welcome-section {
+        padding-bottom: 68px;
+    }
+
+    .welcome-aside {
+        position: absolute;
+        right: 25px;
+        bottom: 17px;
+        left: 25px;
+
+        display: block;
+
+        margin: 0;
+    }
+
+    .welcome-aside .welcome-icon {
+        display: none;
+    }
+
+    .welcome-slogan {
+        display: block;
+
+        width: 100%;
+        height: auto;
+
+        padding-top: 11px;
+        padding-right: 0;
+
+        border-top: 1px solid rgba(255, 255, 255, 0.3);
+        border-right: 0;
+
+        font-size: 0.82rem;
+
+        writing-mode: horizontal-tb;
+        transform: none;
+    }
+}
