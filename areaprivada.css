@@ -2624,3 +2624,18 @@ body::before {
 .competition-grid.hidden {
     display: none;
 }
+
+.competition-card {
+    overflow: hidden;
+}
+
+.competition-card-image {
+    display: block;
+
+    width: calc(100% + 50px);
+    height: 160px;
+
+    margin: -25px -25px 20px;
+
+    object-fit: cover;
+}
