@@ -553,17 +553,12 @@
 
     <script>
         // Cambiar pestañas principales del portal
-        function switchTab(tabId, button) {
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-
-            document.querySelectorAll('.nav-tabs .tab-btn').forEach(tabButton => {
-                tabButton.classList.remove('active');
-            });
-
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.querySelectorAll('.nav-tabs .tab-btn').forEach(btn => btn.classList.remove('active'));
+            
             document.getElementById(tabId).classList.add('active');
-            button.classList.add('active');
+            event.currentTarget.classList.add('active');
         }
 
         // Abrir ventanas modales emergentes

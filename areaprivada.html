@@ -14,6 +14,7 @@
     <script src="perfil.js" defer></script>
     <script src="miembros.js" defer></script>
     <script src="calendar.js" defer></script>
+    <script src="competiciones.js" defer></script>
 
     <link 
         rel="stylesheet" 
@@ -31,13 +32,17 @@
 
         <div class="header-left">
 
-            <div class="private-logo">
-                <!-- CAMBIA LA RUTA SI ES NECESARIO -->
-                <img 
-                    src="Imágenes/Logo Photoshop blanco.png" 
-                    alt="Logo Club de Moot Court UMU"
-                >
-            </div>
+    <button
+        type="button"
+        class="private-logo private-logo-button"
+        onclick="openPrivateLogoModal()"
+        aria-label="Ver logo del Club"
+    >
+        <img 
+            src="Imágenes/Logo Photoshop blanco.png" 
+            alt="Logo Club de Moot Court UMU"
+        >
+    </button>
 
             <div class="header-title">
                 <h1>CLUB DE MOOT COURT UMU</h1>
@@ -602,24 +607,100 @@
                 </div>
 
 
-                <div class="content-card">
+<div id="competition-grid" class="competition-grid">
 
-                    <div class="empty-state">
+    <article
+        class="competition-card"
+        role="button"
+        tabindex="0"
+        data-competition="aedeur"
+    >
+        <div class="competition-icon">
+            <i class="fa-solid fa-scale-balanced"></i>
+        </div>
 
-                        <i class="fa-solid fa-trophy"></i>
+        <p class="welcome-label">DERECHO DE LA UE</p>
+        <h3>AEDEUR Moot Court</h3>
+        <p>
+            Información sobre la competición, preparación del equipo
+            y próximas actividades.
+        </p>
+    </article>
 
-                        <h4>
-                            Competiciones próximamente
-                        </h4>
+    <article
+        class="competition-card"
+        role="button"
+        tabindex="0"
+        data-competition="jessup"
+    >
+        <div class="competition-icon">
+            <i class="fa-solid fa-globe"></i>
+        </div>
 
-                        <p>
-                            La información de cada competición
-                            estará disponible en esta sección.
-                        </p>
+        <p class="welcome-label">DERECHO INTERNACIONAL</p>
+        <h3>Jessup</h3>
+        <p>
+            Espacio informativo sobre el Jessup International Law Moot Court.
+        </p>
+    </article>
 
-                    </div>
+    <article
+        class="competition-card"
+        role="button"
+        tabindex="0"
+        data-competition="euniwell"
+    >
+        <div class="competition-icon">
+            <i class="fa-solid fa-landmark"></i>
+        </div>
 
-                </div>
+        <p class="welcome-label">RED EUROPEA</p>
+        <h3>EUniwell Moot Court</h3>
+        <p>
+            Información y novedades de las actividades vinculadas a EUniwell.
+        </p>
+    </article>
+
+</div>
+
+<div id="competition-detail" class="competition-detail hidden">
+    <button
+        type="button"
+        id="back-to-competitions"
+        class="back-to-competitions"
+    >
+        <i class="fa-solid fa-arrow-left"></i>
+        Volver a competiciones
+    </button>
+
+    <div class="competition-detail-header">
+        <div class="competition-icon">
+            <i id="competition-detail-icon" class="fa-solid fa-scale-balanced"></i>
+        </div>
+
+        <div>
+            <p id="competition-detail-label" class="welcome-label">
+                COMPETICIÓN
+            </p>
+
+            <h3 id="competition-detail-title">Competición</h3>
+
+            <p id="competition-detail-description"></p>
+        </div>
+    </div>
+
+    <div class="competition-detail-info">
+        <div>
+            <span><i class="fa-solid fa-book-open"></i> Área jurídica</span>
+            <strong id="competition-detail-field">—</strong>
+        </div>
+
+        <div>
+            <span><i class="fa-solid fa-circle-info"></i> Estado</span>
+            <strong id="competition-detail-status">—</strong>
+        </div>
+    </div>
+</div>
 
             </section>
 
@@ -837,6 +918,30 @@
     ========================== -->
 
     <div
+        id="private-logo-modal"
+        class="private-logo-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Logo del Club de Moot Court UMU"
+    >
+        <div class="private-logo-modal-content">
+            <button
+                type="button"
+                class="private-logo-modal-close"
+                onclick="closePrivateLogoModal()"
+                aria-label="Cerrar logo"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <img
+                src="Imágenes/Logo Photoshop blanco.png"
+                alt="Logo Club de Moot Court UMU"
+            >
+        </div>
+    </div>
+
+    <div
     id="delete-file-modal"
     class="file-modal hidden"
     role="dialog"
@@ -868,6 +973,16 @@
 </div>
 
     <script>
+
+        function openPrivateLogoModal() {
+            document.getElementById('private-logo-modal')
+                .classList.add('is-open');
+        }
+
+        function closePrivateLogoModal() {
+            document.getElementById('private-logo-modal')
+                .classList.remove('is-open');
+        }
 
         function switchPrivateSection(sectionId, button) {
 
@@ -933,6 +1048,8 @@ document.querySelectorAll('.dashboard-shortcut').forEach(card => {
 });
 
     </script>
+
+    
 
 </body>
 </html>
