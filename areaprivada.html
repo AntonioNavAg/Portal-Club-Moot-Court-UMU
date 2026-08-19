@@ -903,115 +903,223 @@
 
         }
 
-        const calendarStorageKey = 'moot-club-calendar-events';
-        let displayedMonth = new Date();
-        displayedMonth.setDate(1);
+let displayedMonth = new Date();
+displayedMonth.setDate(1);
 
-        function getCalendarEvents() {
-            try {
-                return JSON.parse(localStorage.getItem(calendarStorageKey)) || [];
-            } catch {
-                return [];
-            }
-        }
+let calendarEvents = [];
+let canManageCalendar = false;
 
-        function saveCalendarEvents(events) {
-            localStorage.setItem(calendarStorageKey, JSON.stringify(events));
-        }
+function formatDateForInput(date) {
+    const localDate = new Date(
+        date.getTime() - date.getTimezoneOffset() * 60000
+    );
 
-        function formatDateForInput(date) {
-            const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
-            return localDate.toISOString().slice(0, 10);
-        }
+    return localDate.toISOString().slice(0, 10);
+}
 
-        function renderCalendar() {
-            const monthLabel = document.getElementById('calendar-month');
-            const grid = document.getElementById('calendar-grid');
-            const year = displayedMonth.getFullYear();
-            const month = displayedMonth.getMonth();
-            const firstDay = new Date(year, month, 1);
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            const startOffset = (firstDay.getDay() + 6) % 7;
-            const events = getCalendarEvents();
+async function loadCalendarPermissions() {
+    const { data: userData } = await supabaseClient.auth.getUser();
+    const user = userData.user;
 
-            monthLabel.textContent = new Intl.DateTimeFormat('es-ES', {
-                month: 'long', year: 'numeric'
-            }).format(displayedMonth);
-            grid.innerHTML = '';
+    if (!user) return;
 
-            for (let index = 0; index < startOffset + daysInMonth; index += 1) {
-                const dayCell = document.createElement('div');
-                dayCell.className = 'calendar-day';
+    const { data: profile, error } = await supabaseClient
+        .from('profiles')
+        .select('club_status')
+        .eq('id', user.id)
+        .maybeSingle();
 
-                if (index >= startOffset) {
-                    const day = index - startOffset + 1;
-                    const dateValue = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                    const dayNumber = document.createElement('button');
-                    dayNumber.type = 'button';
-                    dayNumber.className = 'calendar-day-number';
-                    dayNumber.textContent = day;
-                    dayNumber.setAttribute('aria-label', `Añadir cita el ${day}`);
-                    dayNumber.addEventListener('click', () => {
-                        document.getElementById('appointment-date').value = dateValue;
-                        document.getElementById('appointment-title').focus();
-                    });
-                    dayCell.appendChild(dayNumber);
+    if (error) {
+        console.error('No se ha podido comprobar el permiso de calendario:', error);
+        return;
+    }
 
-                    events.filter(event => event.date === dateValue).forEach(event => {
-                        const eventButton = document.createElement('button');
-                        eventButton.type = 'button';
-                        eventButton.className = 'calendar-event';
-                        eventButton.dataset.eventId = event.id;
-                        eventButton.title = [
-                            event.title,
-                            event.time,
-                            event.description,
-                            'Pulsa para eliminar esta cita'
-                        ].filter(Boolean).join(' · ');
-                        eventButton.textContent = `${event.time ? `${event.time} · ` : ''}${event.title}`;
+    canManageCalendar = profile?.club_status === 'staff';
+
+    if (!canManageCalendar) {
+        document.getElementById('appointment-form').classList.add('hidden');
+    }
+}
+
+async function loadCalendarEvents() {
+    const { data, error } = await supabaseClient
+        .from('calendar_events')
+        .select('id, title, event_date, event_time, description, created_by')
+        .order('event_date', { ascending: true })
+        .order('event_time', { ascending: true });
+
+    if (error) {
+        console.error('No se han podido cargar las citas:', error);
+        alert('No se han podido cargar las citas del calendario.');
+        return;
+    }
+
+    calendarEvents = data || [];
+    renderCalendar();
+}
+
+function renderCalendar() {
+    const monthLabel = document.getElementById('calendar-month');
+    const grid = document.getElementById('calendar-grid');
+
+    const year = displayedMonth.getFullYear();
+    const month = displayedMonth.getMonth();
+    const firstDay = new Date(year, month, 1);
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const startOffset = (firstDay.getDay() + 6) % 7;
+
+    monthLabel.textContent = new Intl.DateTimeFormat('es-ES', {
+        month: 'long',
+        year: 'numeric'
+    }).format(displayedMonth);
+
+    grid.replaceChildren();
+
+    for (let index = 0; index < startOffset + daysInMonth; index += 1) {
+        const dayCell = document.createElement('div');
+        dayCell.className = 'calendar-day';
+
+        if (index >= startOffset) {
+            const day = index - startOffset + 1;
+
+            const dateValue =
+                `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
+            const dayNumber = document.createElement('button');
+            dayNumber.type = 'button';
+            dayNumber.className = 'calendar-day-number';
+            dayNumber.textContent = day;
+
+            dayNumber.addEventListener('click', () => {
+                if (!canManageCalendar) return;
+
+                document.getElementById('appointment-date').value = dateValue;
+                document.getElementById('appointment-title').focus();
+            });
+
+            dayCell.appendChild(dayNumber);
+
+            calendarEvents
+                .filter(calendarEvent => calendarEvent.event_date === dateValue)
+                .forEach(calendarEvent => {
+                    const eventButton = document.createElement('button');
+
+                    eventButton.type = 'button';
+                    eventButton.className = 'calendar-event';
+
+                    eventButton.title = [
+                        calendarEvent.title,
+                        calendarEvent.event_time,
+                        calendarEvent.description
+                    ].filter(Boolean).join(' · ');
+
+                    eventButton.textContent =
+                        `${calendarEvent.event_time ? `${calendarEvent.event_time.slice(0, 5)} · ` : ''}${calendarEvent.title}`;
+
+                    if (canManageCalendar) {
                         eventButton.addEventListener('click', () => {
-                            if (confirm(`¿Eliminar la cita “${event.title}”?`)) {
-                                saveCalendarEvents(getCalendarEvents().filter(item => item.id !== event.id));
-                                renderCalendar();
-                            }
+                            deleteCalendarEvent(calendarEvent);
                         });
-                        dayCell.appendChild(eventButton);
-                    });
-                } else {
-                    dayCell.classList.add('calendar-day-empty');
-                }
-                grid.appendChild(dayCell);
-            }
+                    }
+
+                    dayCell.appendChild(eventButton);
+                });
+        } else {
+            dayCell.classList.add('calendar-day-empty');
         }
 
-        document.getElementById('calendar-previous').addEventListener('click', () => {
-            displayedMonth.setMonth(displayedMonth.getMonth() - 1);
-            renderCalendar();
-        });
+        grid.appendChild(dayCell);
+    }
+}
 
-        document.getElementById('calendar-next').addEventListener('click', () => {
-            displayedMonth.setMonth(displayedMonth.getMonth() + 1);
-            renderCalendar();
-        });
+async function deleteCalendarEvent(calendarEvent) {
+    const confirmed = confirm(
+        `¿Quieres eliminar la cita “${calendarEvent.title}”?`
+    );
 
-        document.getElementById('appointment-form').addEventListener('submit', event => {
-            event.preventDefault();
-            const title = document.getElementById('appointment-title').value.trim();
-            const date = document.getElementById('appointment-date').value;
-            const time = document.getElementById('appointment-time').value;
-            const description = document.getElementById('appointment-description').value.trim();
-            if (!title || !date) return;
+    if (!confirmed) return;
 
-            const events = getCalendarEvents();
-            events.push({ id: crypto.randomUUID(), title, date, time, description });
-            saveCalendarEvents(events);
-            displayedMonth = new Date(`${date}T12:00:00`);
-            document.getElementById('appointment-form').reset();
-            renderCalendar();
-        });
+    const { error } = await supabaseClient
+        .from('calendar_events')
+        .delete()
+        .eq('id', calendarEvent.id);
 
-        document.getElementById('appointment-date').value = formatDateForInput(new Date());
-        renderCalendar();
+    if (error) {
+        alert('No se ha podido eliminar la cita: ' + error.message);
+        return;
+    }
+
+    await loadCalendarEvents();
+}
+
+document.getElementById('calendar-previous').addEventListener('click', async () => {
+    displayedMonth.setMonth(displayedMonth.getMonth() - 1);
+    renderCalendar();
+});
+
+document.getElementById('calendar-next').addEventListener('click', async () => {
+    displayedMonth.setMonth(displayedMonth.getMonth() + 1);
+    renderCalendar();
+});
+
+document.getElementById('appointment-form').addEventListener(
+    'submit',
+    async submitEvent => {
+        submitEvent.preventDefault();
+
+        if (!canManageCalendar) {
+            alert('No tienes permiso para crear citas.');
+            return;
+        }
+
+        const { data: userData } = await supabaseClient.auth.getUser();
+        const user = userData.user;
+
+        if (!user) {
+            alert('Tu sesión ha caducado. Vuelve a iniciar sesión.');
+            return;
+        }
+
+        const title = document.getElementById('appointment-title').value.trim();
+        const eventDate = document.getElementById('appointment-date').value;
+        const eventTime = document.getElementById('appointment-time').value || null;
+        const description =
+            document.getElementById('appointment-description').value.trim() || null;
+
+        const { error } = await supabaseClient
+            .from('calendar_events')
+            .insert({
+                title,
+                event_date: eventDate,
+                event_time: eventTime,
+                description,
+                created_by: user.id
+            });
+
+        if (error) {
+            alert('No se ha podido guardar la cita: ' + error.message);
+            return;
+        }
+
+        displayedMonth = new Date(`${eventDate}T12:00:00`);
+
+        document.getElementById('appointment-form').reset();
+        document.getElementById('appointment-date').value =
+            formatDateForInput(new Date());
+
+        await loadCalendarEvents();
+    }
+);
+
+async function initializeCalendar() {
+    document.getElementById('appointment-date').value =
+        formatDateForInput(new Date());
+
+    await loadCalendarPermissions();
+    await loadCalendarEvents();
+}
+
+initializeCalendar();
 
         function openDashboardShortcut(sectionId) {
     const sidebarButton = Array.from(
