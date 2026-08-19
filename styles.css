@@ -991,3 +991,98 @@ blockquote {
         font-size: 1.25rem;
     }
 }
+
+/* =========================================
+   CABECERA PRINCIPAL — AJUSTE PARA MÓVIL
+========================================= */
+
+@media (max-width: 767px) {
+    .main-header {
+        padding-top: 0;
+    }
+
+    .header-top {
+        display: grid;
+        grid-template-columns: 54px minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 10px;
+
+        min-height: 78px;
+        padding: 12px 14px;
+    }
+
+    .header-logo {
+        position: static;
+    }
+
+    .header-logo img {
+        width: 54px;
+        height: 54px;
+    }
+
+    .header-title-container {
+        padding: 0;
+        text-align: left;
+    }
+
+    .club-title {
+        font-size: 1.05rem;
+        line-height: 1.15;
+        letter-spacing: 0;
+    }
+
+    .faculty-sub {
+        margin-top: 3px;
+        font-size: 0.75rem;
+    }
+
+    .btn-acceso {
+        position: static;
+        transform: none;
+
+        gap: 5px;
+        padding: 8px 10px;
+
+        font-size: 0.78rem;
+        white-space: nowrap;
+    }
+
+    .btn-acceso:hover {
+        transform: scale(1.03);
+    }
+
+    .nav-tabs {
+        justify-content: flex-start;
+    }
+
+    .tab-btn {
+        padding: 11px 14px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 390px) {
+    .header-top {
+        grid-template-columns: 45px minmax(0, 1fr) auto;
+        gap: 7px;
+        padding: 10px;
+    }
+
+    .header-logo img {
+        width: 45px;
+        height: 45px;
+    }
+
+    .club-title {
+        font-size: 0.88rem;
+    }
+
+    .faculty-sub {
+        font-size: 0.68rem;
+    }
+
+    .btn-acceso {
+        padding: 7px 8px;
+        font-size: 0.72rem;
+    }
+}
